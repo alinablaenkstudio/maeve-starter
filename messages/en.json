@@ -1,0 +1,36 @@
+{
+  "nav": {
+    "home": "Home",
+    "contact": "Contact"
+  },
+  "home": {
+    "title": "Welcome",
+    "description": "Your project starts here."
+  },
+  "footer": {
+    "legal": "Legal Notice",
+    "privacy": "Privacy Policy",
+    "madeBy": "Built by maeve studio"
+  },
+  "impressum": {
+    "title": "Legal Notice",
+    "responsible": "Responsible",
+    "company": "COMPANY NAME",
+    "address": "STREET, ZIP CITY",
+    "uid": "UID: CHE-XXX.XXX.XXX",
+    "email": "Email: hello@yourdomain.com"
+  },
+  "datenschutz": {
+    "title": "Privacy Policy",
+    "intro": "Protecting your personal data is important to us.",
+    "responsible_title": "Data Controller",
+    "collection_title": "Data Collection",
+    "collection_text": "This website does not collect personal data beyond server logs.",
+    "cookies_title": "Cookies",
+    "cookies_text": "This website does not use cookies.",
+    "hosting_title": "Hosting",
+    "hosting_text": "This website is hosted on Vercel (Vercel Inc., USA). More information at vercel.com/legal/privacy-policy.",
+    "rights_title": "Your Rights",
+    "rights_text": "You have the right to access, correct, and delete your data. Contact: hello@yourdomain.com"
+  }
+}

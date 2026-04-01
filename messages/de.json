@@ -1,0 +1,36 @@
+{
+  "nav": {
+    "home": "Start",
+    "contact": "Kontakt"
+  },
+  "home": {
+    "title": "Willkommen",
+    "description": "Ihr Projekt startet hier."
+  },
+  "footer": {
+    "legal": "Impressum",
+    "privacy": "Datenschutz",
+    "madeBy": "Erstellt von maeve studio"
+  },
+  "impressum": {
+    "title": "Impressum",
+    "responsible": "Verantwortlich",
+    "company": "FIRMENNAME",
+    "address": "STRASSE, PLZ ORT",
+    "uid": "UID: CHE-XXX.XXX.XXX",
+    "email": "E-Mail: hello@yourdomain.com"
+  },
+  "datenschutz": {
+    "title": "Datenschutzerklärung",
+    "intro": "Der Schutz Ihrer persönlichen Daten ist uns wichtig.",
+    "responsible_title": "Verantwortliche Stelle",
+    "collection_title": "Datenerhebung",
+    "collection_text": "Diese Website erhebt keine personenbezogenen Daten ausser Server-Logs.",
+    "cookies_title": "Cookies",
+    "cookies_text": "Diese Website verwendet keine Cookies.",
+    "hosting_title": "Hosting",
+    "hosting_text": "Diese Website wird auf Vercel gehostet (Vercel Inc., USA). Weitere Informationen unter vercel.com/legal/privacy-policy.",
+    "rights_title": "Ihre Rechte",
+    "rights_text": "Sie haben das Recht auf Auskunft, Berichtigung und Löschung Ihrer Daten. Kontakt: hello@yourdomain.com"
+  }
+}

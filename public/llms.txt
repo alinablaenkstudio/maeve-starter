@@ -1,0 +1,16 @@
+# PROJECT NAME
+
+> Short description of the project for AI crawlers.
+
+## Company
+
+- Name: PROJECT NAME
+- Location: Zürich, Switzerland
+- Website: https://yourdomain.com
+- Contact: hello@yourdomain.com
+
+## Important Pages
+
+- [Home DE](https://yourdomain.com/de): Main website in German
+- [Home EN](https://yourdomain.com/en): Main website in English
+- [Impressum](https://yourdomain.com/de/impressum): Legal information
