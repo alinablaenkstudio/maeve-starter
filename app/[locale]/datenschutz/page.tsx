@@ -9,7 +9,7 @@ export default function DatenschutzPage() {
   const t = useTranslations('datenschutz')
 
   return (
-    <main>
+    <main className="legal">
       <h1>{t('title')}</h1>
       <p>{t('intro')}</p>
       <h2>{t('responsible_title')}</h2>

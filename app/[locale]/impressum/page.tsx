@@ -9,7 +9,7 @@ export default function ImpressumPage() {
   const t = useTranslations('impressum')
 
   return (
-    <main>
+    <main className="legal">
       <h1>{t('title')}</h1>
       <h2>{t('responsible')}</h2>
       <p>{t('company')}</p>

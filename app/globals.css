@@ -67,3 +67,36 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+/* ============================================================
+   LEGAL PAGES (Impressum, Datenschutz)
+   ============================================================ */
+.legal {
+  max-width: 720px;
+  margin-inline: auto;
+  padding-inline: var(--padding-x);
+  padding-block: var(--spacing-lg) var(--spacing-xl);
+}
+
+.legal h1 {
+  font-size: 2rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.legal h2 {
+  font-size: 1.125rem;
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-xs);
+}
+
+.legal p,
+.legal address {
+  font-style: normal;
+  color: var(--color-muted);
+  margin-bottom: var(--spacing-xs);
+}
+
+.legal a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
