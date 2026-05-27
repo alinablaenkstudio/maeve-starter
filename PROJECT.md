@@ -84,7 +84,7 @@ Diese Entscheidungen müssen VOR dem Start getroffen werden. Besprich sie im Kic
 - [ ] Favicon (falls eigenes gewünscht, sonst aus Logo generieren)
 - [ ] Fotos geliefert (JPG/PNG → Mirco konvertiert zu WebP)
 - [ ] Illustrationen geliefert (→ SVG-Format)
-- [ ] OG-Image definiert / erstellt (1200×630px, JPG)
+- [ ] OG-Image erstellt: statisches JPEG 1200×630px, max 300KB → `public/og-social.jpg` (mit Overlay via ImageMagick, direkt in metadata referenzieren — KEIN opengraph-image.tsx, das gibt 800KB PNG aus und WhatsApp zeigt Favicon)
 - [ ] Farbpalette festgelegt (Primary, Secondary, Accent)
 - [ ] Schriften festgelegt (Google Fonts oder Custom)
 
@@ -92,7 +92,7 @@ Diese Entscheidungen müssen VOR dem Start getroffen werden. Besprich sie im Kic
 - [ ] Kunde hat Domain (Registrierung ist Sache des Kunden)
 - [ ] Kunde hat Zugang zu seinem Domain-Provider (GoDaddy, Hostpoint, etc.)
 - [ ] DNS-Anleitung für Vercel an Kunden geschickt (CNAME / A-Record)
-- [ ] E-Mail-Setup (falls Kontaktformular mit eigener Domain)
+- [ ] E-Mail-Setup: Resend (Formular-Versand) + Google Workspace (Kundenpostfach) sind zwei separate Sachen → STANDARDS.md → E-Mail-Setup
 
 ---
 
