@@ -10,7 +10,7 @@ import { siteConfig } from '@/config/site'
 // Resend-Kontingent fern (100 Mails/Tag über alle maeve-Projekte).
 // Bei ernsthaftem Spam: Cloudflare Turnstile ergänzen.
 const WINDOW_MS = 10 * 60 * 1000
-const MAX_PER_WINDOW = 3
+const MAX_PER_WINDOW = 6
 const hits = new Map<string, number[]>()
 
 function isRateLimited(ip: string) {
@@ -45,6 +45,7 @@ export async function POST(req: Request) {
     req.headers.get('x-forwarded-for')?.split(',')[0].trim() ?? 'unknown'
 
   if (isRateLimited(ip)) {
+    console.warn('Rate-Limit erreicht — Anfrage blockiert.')
     return Response.json({ error: 'Zu viele Anfragen' }, { status: 429 })
   }
 
