@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function ImpressumPage() {
   return (
-    <main className="legal">
+    <main>
       <h1>Impressum</h1>
 
       <h2>Verantwortlich für den Inhalt</h2>

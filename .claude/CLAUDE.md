@@ -91,7 +91,8 @@
 Preview-Server starten, Screenshot zeigen, iterieren.
 
 **Legal-Seiten beim Redesign mitziehen:** Wenn `globals.css` neu aufgebaut wird,
-müssen die `.legal`-Styles für Impressum und Datenschutz mit angepasst werden.
+müssen Impressum, Datenschutz und 404 mitgestylt werden. Sie haben keine
+eigenen Klassen — das Projekt entscheidet, wie sie angebunden werden.
 Diese Seiten sollen dasselbe Look & Feel haben wie der Rest.
 
 ## Status

@@ -38,7 +38,7 @@ input, button, textarea, select {
 /* Honeypot des Kontaktformulars — funktional, kein Design.
    Muss das Feld vor Menschen verstecken, ohne es für Bots zu entfernen.
    Nicht löschen und nicht auf display:none ändern. */
-.form__hp {
+.honeypot {
   position: absolute;
   left: -9999px;
   width: 1px;

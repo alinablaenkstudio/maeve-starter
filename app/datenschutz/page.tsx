@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function DatenschutzPage() {
   return (
-    <main className="legal">
+    <main>
       <h1>Datenschutzerklärung</h1>
       <p>
         Der Schutz Ihrer persönlichen Daten ist uns wichtig. Nachfolgend

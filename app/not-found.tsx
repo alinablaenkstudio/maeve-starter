@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main className="legal">
+    <main>
       <h1>Seite nicht gefunden</h1>
       <p>Diese Seite existiert nicht oder wurde verschoben.</p>
       <p>

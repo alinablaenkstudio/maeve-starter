@@ -35,11 +35,11 @@ export default function ContactForm() {
   }
 
   if (sent) {
-    return <p className="form__success">Vielen Dank — ich melde mich bald.</p>
+    return <p>Vielen Dank — ich melde mich bald.</p>
   }
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="name">Name</label>
         <input type="text" id="name" name="name" placeholder="Dein Name" required />
@@ -54,13 +54,13 @@ export default function ContactForm() {
       </div>
 
       {/* Honeypot — vor Menschen versteckt, Bots füllen es aus. Nicht entfernen. */}
-      <div className="form__hp" aria-hidden="true">
+      <div className="honeypot" aria-hidden="true">
         <label htmlFor="website">Website</label>
         <input type="text" id="website" name="website" tabIndex={-1} autoComplete="off" />
       </div>
 
-      {error && <p className="form__error">{error}</p>}
-      <button type="submit" className="form__submit" disabled={sending}>
+      {error && <p role="alert">{error}</p>}
+      <button type="submit" disabled={sending}>
         {sending ? 'Wird gesendet…' : 'Senden'}
       </button>
     </form>
