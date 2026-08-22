@@ -93,6 +93,7 @@ Diese Entscheidungen müssen VOR dem Start getroffen werden. Besprich sie im Kic
 - [ ] Kunde hat Zugang zu seinem Domain-Provider (GoDaddy, Hostpoint, etc.)
 - [ ] DNS-Anleitung für Vercel an Kunden geschickt (CNAME / A-Record)
 - [ ] E-Mail-Setup: Resend (Formular-Versand) + Google Workspace (Kundenpostfach) sind zwei separate Sachen → STANDARDS.md → E-Mail-Setup
+- [ ] Resend: **keine** Kundendomain verifizieren — der Absender ist fix `noreply@blaenkstudio.com`. Nur einen API Key pro Projekt anlegen und als `RESEND_API_KEY` in Vercel hinterlegen.
 
 ---
 
@@ -226,7 +227,7 @@ Diese Entscheidungen müssen VOR dem Start getroffen werden. Besprich sie im Kic
 
 **Deployment**
 - [ ] Vercel Projekt eingerichtet
-- [ ] Environment Variables gesetzt (falls nötig: RESEND_API_KEY, etc.)
+- [ ] Environment Variables gesetzt (falls nötig: RESEND_API_KEY, etc.) — ohne Key gibt das Kontaktformular in Produktion still 500 zurück
 - [ ] Custom Domain in Vercel hinzugefügt
 - [ ] DNS-Anleitung an Kunden geschickt (Kunde ändert DNS selbst oder wir machen es gemeinsam per Screenshare)
 - [ ] SSL-Zertifikat aktiv (Vercel macht das automatisch)

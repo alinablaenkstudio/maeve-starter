@@ -11,7 +11,7 @@ export async function POST(req: Request) {
   }
 
   const { error } = await resend.emails.send({
-    from: `${siteConfig.name} Website <noreply@${new URL(siteConfig.url).hostname}>`,
+    from: `${siteConfig.name} Website <noreply@blaenkstudio.com>`,
     to: siteConfig.email,
     replyTo: email,
     subject: `Neue Kontaktanfrage von ${name}`,
