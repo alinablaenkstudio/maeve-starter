@@ -90,6 +90,10 @@ Diese Entscheidungen müssen VOR dem Start getroffen werden. Besprich sie im Kic
       das gibt 800KB PNG aus und WhatsApp zeigt dann nur das Favicon.
 - [ ] Farbpalette festgelegt (in `app/globals.css` als CSS-Variablen unter `:root`)
 - [ ] Schriften festgelegt (Google Fonts via `next/font/google` in `app/layout.tsx`)
+- [ ] Gestaltung aus dem Projekt entwickelt — **nicht** aus dem Starter oder einem
+      anderen maeve-Projekt übernommen. Der Starter liefert Technik, kein Design.
+      Wenn der Kunde eine bestehende Seite hat, ist deren Formensprache der
+      Ausgangspunkt, nicht unsere Hausmuster.
 
 **Domain & Hosting**
 - [ ] Kunde hat Domain (Registrierung ist Sache des Kunden)
@@ -106,6 +110,13 @@ Diese Entscheidungen müssen VOR dem Start getroffen werden. Besprich sie im Kic
 ## 4. Technisches Setup
 
 > Referenz: `~/dev/STANDARDS.md`
+
+**Design**
+- [ ] Der Starter bringt nur einen CSS-Reset mit. Farben, Schriften, Abstände,
+      Komponenten-Styles: alles pro Projekt.
+- [ ] Kontrast geprüft: Fliesstext mindestens 4.5:1, grosse Schrift ab 24px
+      mindestens 3:1. Helle Marken- und Pastellfarben reissen das schnell —
+      rechnen statt schätzen.
 
 **Repo & Projekt**
 - [ ] Starter geklont: `git clone https://github.com/alinablaenkstudio/maeve-starter.git maeve-[kunde]`

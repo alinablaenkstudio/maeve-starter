@@ -22,20 +22,14 @@
 | Framework | Next.js 15 (App Router, Server Components) |
 | Language | TypeScript 5 |
 | Sprache | DE-only (i18n siehe `docs/i18n-add-on.md`) |
-| Styling | Native CSS in `app/globals.css` — kein Tailwind |
+| Styling | Native CSS in `app/globals.css` — kein Tailwind. Design kommt vom Projekt, der Starter liefert nur den Reset. |
 | Formular | Resend über `app/api/contact/route.ts` |
 | Analytics | Vercel Analytics |
 | Hosting | Vercel |
 
 ## Farbpalette
 
-| Token | Hex | Beschreibung |
-|-------|-----|--------------|
-| `--color-bg` | `#ffffff` | Hintergrund |
-| `--color-text` | `#111111` | Text |
-| `--color-accent` | `#000000` | Akzent |
-
-<!-- Beim Design durch die echten Projekt-Tokens ersetzen. -->
+<!-- Pro Projekt festlegen. Der Starter gibt bewusst keine Farben vor. -->
 
 ## Projektentscheide
 
@@ -88,6 +82,8 @@
 - Eine Komponente pro Datei in `components/`
 - Server Components by default, `'use client'` nur wo nötig
 - CSS in `app/globals.css`, Design-Tokens als CSS-Variablen unter `:root`
+- Gestaltung immer aus dem Projekt heraus entwickeln, nie aus dem Starter oder
+  aus einem anderen maeve-Projekt übernehmen — sonst gleichen sich die Seiten an
 
 ## Design-Workflow
 
