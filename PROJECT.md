@@ -11,21 +11,20 @@ Diese Entscheidungen müssen VOR dem Start getroffen werden. Besprich sie im Kic
 
 **Grundlagen**
 - [ ] Projektname & Repo-Name festgelegt (`maeve-[kundenname]`)
-- [ ] Domain geklärt (Kunde hat Domain / muss noch registriert werden)
-- [ ] Sprache(n): nur DE / nur EN / DE + EN
-- [ ] Default-Locale festgelegt (bei bilingual)
+- [ ] Domain geklärt (Kunde hat Domain / muss noch registriert werden / bestehende Domain wird übernommen)
+- [ ] Sprache: DE-only (Standard) / DE + EN (→ `docs/i18n-add-on.md`, **vor** dem Design entscheiden)
 
 **Umfang**
-- [ ] Seitenstruktur definiert (welche Seiten braucht es?)
+- [ ] Seitenstruktur definiert (One-Pager oder Mehrseiter, welche Seiten?)
 - [ ] Kontaktformular: ja / nein / nur E-Mail-Link
+- [ ] Buchungstool-Embed: ja / nein
 - [ ] Blog: ja / nein / später
 - [ ] FAQ-Bereich: ja / nein
 - [ ] Newsletter-Signup: ja / nein
 
 **Analytics & Tracking**
-- [ ] Vercel Analytics (Standard — kein Cookie-Banner nötig)
+- [ ] Vercel Analytics (Standard — im Starter drin, kein Cookie-Banner nötig)
 - [ ] Google Ads / Meta Pixel: ja / nein (→ falls ja: Cookie-Banner + Datenschutz erweitern)
-- [ ] Plausible: ja / nein (optional, kein Cookie-Banner nötig)
 
 **Wartungsmodell**
 - [ ] Kein CMS, kein Client-Login (maeve Standard)
@@ -69,8 +68,10 @@ Diese Entscheidungen müssen VOR dem Start getroffen werden. Besprich sie im Kic
 - [ ] Claim / Tagline
 - [ ] Über-uns Text oder Stichpunkte
 - [ ] Texte pro Seite (oder Stichpunkte die wir ausformulieren)
+- [ ] Angebote & Preise
 - [ ] FAQ-Fragen + Antworten (falls FAQ)
-- [ ] Kontakt-Infos: E-Mail, Telefon, Adresse
+- [ ] Kontakt-Infos: E-Mail, Telefon, Adresse, Öffnungszeiten
+- [ ] Testimonials / Google-Reviews (Name + Text, für Schema)
 
 **Rechtliches (für Impressum & Datenschutz)**
 - [ ] Vollständiger Firmenname / Vereinsname
@@ -81,81 +82,77 @@ Diese Entscheidungen müssen VOR dem Start getroffen werden. Besprich sie im Kic
 
 **Bilder & Design**
 - [ ] Logo (idealerweise SVG oder PNG mit transparentem Hintergrund)
-- [ ] Favicon (falls eigenes gewünscht, sonst aus Logo generieren)
+- [ ] Favicon → `app/icon.png` (falls eigenes gewünscht, sonst aus Logo generieren)
 - [ ] Fotos geliefert (JPG/PNG → Mirco konvertiert zu WebP)
 - [ ] Illustrationen geliefert (→ SVG-Format)
-- [ ] OG-Image erstellt: statisches JPEG 1200×630px, max 300KB → `public/og-social.jpg` (mit Overlay via ImageMagick, direkt in metadata referenzieren — KEIN opengraph-image.tsx, das gibt 800KB PNG aus und WhatsApp zeigt Favicon)
-- [ ] Farbpalette festgelegt (Primary, Secondary, Accent)
-- [ ] Schriften festgelegt (Google Fonts oder Custom)
+- [ ] OG-Image erzeugt: `./scripts/make-og.sh public/images/hero.jpg "rgba(R,G,B,0.7)"`
+      → statisches JPEG 1200×630, max 300KB. **Kein** `opengraph-image.tsx` —
+      das gibt 800KB PNG aus und WhatsApp zeigt dann nur das Favicon.
+- [ ] Farbpalette festgelegt (in `app/globals.css` als CSS-Variablen unter `:root`)
+- [ ] Schriften festgelegt (Google Fonts via `next/font/google` in `app/layout.tsx`)
 
 **Domain & Hosting**
 - [ ] Kunde hat Domain (Registrierung ist Sache des Kunden)
-- [ ] Kunde hat Zugang zu seinem Domain-Provider (GoDaddy, Hostpoint, etc.)
-- [ ] DNS-Anleitung für Vercel an Kunden geschickt (CNAME / A-Record)
-- [ ] E-Mail-Setup: Resend (Formular-Versand) + Google Workspace (Kundenpostfach) sind zwei separate Sachen → STANDARDS.md → E-Mail-Setup
-- [ ] Resend: **keine** Kundendomain verifizieren — der Absender ist fix `noreply@blaenkstudio.com`. Nur einen API Key pro Projekt anlegen und als `RESEND_API_KEY` in Vercel hinterlegen.
+- [ ] Kunde hat Zugang zu seinem Domain-Provider (Hostpoint, Hoststar, GoDaddy, etc.)
+- [ ] DNS-Anleitung für Vercel an Kunden geschickt (A-Record / CNAME)
+- [ ] E-Mail-Setup: Resend (Formular-Versand) + Google Workspace (Kundenpostfach)
+      sind zwei separate Sachen → `~/dev/STANDARDS.md` → E-Mail-Setup
+- [ ] Resend: **keine** Kundendomain verifizieren — Absender ist fix
+      `noreply@blaenkstudio.com`. Nur einen API Key pro Projekt anlegen und
+      als `RESEND_API_KEY` in Vercel hinterlegen (Production **und** Preview).
 
 ---
 
 ## 4. Technisches Setup
 
-> Referenz: ~/dev/STANDARDS.md
+> Referenz: `~/dev/STANDARDS.md`
 
 **Repo & Projekt**
-- [ ] Repo erstellt: `maeve-[kundenname]`
-- [ ] Next.js Projekt initialisiert (App Router)
-- [ ] TypeScript konfiguriert
-- [ ] Tailwind CSS installiert + konfiguriert
-- [ ] Farbtoken als CSS-Variablen in globals.css definiert
-- [ ] Custom Fonts eingebunden (public/fonts/ oder Google Fonts)
-- [ ] CLAUDE.md erstellt mit Projektinfos
+- [ ] Starter geklont: `git clone https://github.com/alinablaenkstudio/maeve-starter.git maeve-[kunde]`
+- [ ] `.git` neu initialisiert, eigenes GitHub Repo erstellt (`maeve-[kundenname]`, privat)
+- [ ] `npm install` durchgelaufen
+- [ ] `config/site.ts` befüllt (Name, URL, E-Mail) — **vor** allem anderen
+- [ ] `.claude/CLAUDE.md` mit Projektinfos befüllt
+- [ ] Farbtoken als CSS-Variablen in `app/globals.css`
+- [ ] Fonts eingebunden (`next/font/google` in `app/layout.tsx`)
 
-**i18n (falls mehrsprachig)**
-- [ ] next-intl v4 installiert
-- [ ] i18n/routing.ts — Locales + Default definiert
-- [ ] i18n/request.ts — Message-Loader
-- [ ] i18n/navigation.ts — Custom Link, useRouter
-- [ ] middleware.ts — Locale Detection + Redirects
-- [ ] messages/de.json erstellt
-- [ ] messages/en.json erstellt
-- [ ] language-context.tsx eingerichtet
-- [ ] Language Switcher Komponente gebaut
+**i18n (nur falls mehrsprachig)**
+- [ ] `docs/i18n-add-on.md` abgearbeitet
+- [ ] Sprachumschalter in `Nav.tsx`
+- [ ] Sitemap + llms.txt um zweite Sprache erweitert
 
 **Seitenstruktur**
-- [ ] app/layout.tsx — Root Layout (Fonts, Metadata)
-- [ ] app/[locale]/layout.tsx — Locale Layout (Provider, Nav, Footer)
-- [ ] app/[locale]/page.tsx — Homepage
+- [ ] `app/layout.tsx` — Metadata, OG, JSON-LD, Fonts angepasst
+- [ ] `app/page.tsx` — Homepage
 - [ ] Weitere Seiten gemäss Projektentscheid angelegt
-- [ ] Navigation Komponente
-- [ ] Footer Komponente
+- [ ] `components/Nav.tsx` + `components/Footer.tsx` angepasst
+- [ ] `app/not-found.tsx` gestyled
 
-**Config-Struktur (nach blaenk-Muster)**
-- [ ] config/site.ts — Seitenname, URL, Social Links
-- [ ] config/legal.ts — Impressum + Datenschutz Inhalte
-- [ ] config/faq.ts (falls FAQ)
-- [ ] config/contact.ts (falls Kontaktformular)
-- [ ] Weitere Config-Dateien nach Bedarf
+**Config-Struktur**
+- [ ] `config/site.ts` — Name, URL, E-Mail
+- [ ] Weitere Config-Dateien nur wo es wirklich Daten sind, die sich wiederholen
+      (z.B. `config/fahrten.ts`, `config/faq.ts`) — sonst Texte direkt ins JSX
 
 ---
 
 ## 5. Features einbauen
 
 **Kontaktformular (falls ja)**
-- [ ] Formular-Komponente gebaut (React Hook Form + Zod)
-- [ ] Server Action: E-Mail senden (Resend)
-- [ ] Captcha: Cloudflare Turnstile
-- [ ] Erfolgs- / Fehlermeldung im UI
-- [ ] E-Mail-Template erstellt
+- [ ] `components/ContactForm.tsx` ins Design integriert
+- [ ] Honeypot-Feld `website` **nicht** entfernt (Spam-Schutz)
+- [ ] Rate-Limit in `app/api/contact/route.ts` belassen
+- [ ] Erfolgs- / Fehlermeldung gestyled
+- [ ] Formular in Produktion getestet (E-Mail kommt an, Reply-To stimmt)
+- [ ] Cloudflare Turnstile — nur falls tatsächlich Spam auftaucht
 
 **Blog (falls ja)**
-- [ ] Route: app/[locale]/blog/page.tsx + [slug]/page.tsx
-- [ ] content/blog/ Ordner mit MDX-Dateien
-- [ ] config/blog.ts — Post-Metadaten
-- [ ] lib/blog.ts — getPostBySlug(), formatDate()
-- [ ] MDX-Komponenten (h2, h3, p, blockquote, ul, ol, Figure)
-- [ ] Post-Card Komponente
-- [ ] Blog-Layout mit max-w-[720px] Lesebreite
-- [ ] RSS Feed: app/[locale]/feed.xml/route.ts
+- [ ] `lib/posts.ts` — Post-Metadaten (Slug, Titel, Datum, Beschreibung)
+- [ ] `app/blog/page.tsx` — Übersicht
+- [ ] `app/blog/[slug]/page.tsx` oder eine Datei pro Post
+- [ ] Lesebreite max. 720px
+- [ ] `BlogPosting` + `BreadcrumbList` JSON-LD pro Post
+- [ ] Posts in `app/sitemap.ts` eingetragen
+- [ ] Referenz: `~/dev/maeve-massagezeiten`
 
 **Cookie-Banner (nur falls Google Ads / Meta Pixel)**
 - [ ] Cookie-Consent Komponente eingebaut
@@ -166,72 +163,74 @@ Diese Entscheidungen müssen VOR dem Start getroffen werden. Besprich sie im Kic
 
 ## 6. SEO
 
-> Referenz: ~/dev/STANDARDS.md → SEO Baseline
+> Referenz: `~/dev/STANDARDS.md` → SEO Baseline
 
 **Technisch**
-- [ ] app/robots.ts existiert mit korrekter Sitemap-URL
-- [ ] app/sitemap.ts existiert und listet alle Locale-URLs
-- [ ] generateMetadata mit alternates (canonical + hreflang) pro Seite
-- [ ] OG-Image vorhanden (1200×630px, JPG)
-- [ ] Favicon vorhanden (app/icon.png)
-- [ ] JSON-LD: mindestens LocalBusiness + WebSite
-- [ ] JSON-LD: FAQPage (falls FAQ vorhanden)
-- [ ] JSON-LD: BlogPosting + BreadcrumbList (falls Blog)
-- [ ] Security Headers in next.config.ts (alle 5)
-- [ ] poweredByHeader: false in next.config.ts
+- [ ] `app/robots.ts` mit korrekter Sitemap-URL
+- [ ] `app/sitemap.ts` listet alle Seiten
+- [ ] `app/llms.txt/route.ts` befüllt
+- [ ] `alternates.canonical` in jeder `metadata` / `generateMetadata`
+- [ ] OG-Image vorhanden (1200×630 JPG, max 300KB)
+- [ ] Favicon vorhanden (`app/icon.png`)
+- [ ] JSON-LD: mindestens `WebSite` + passender Business-Typ
+      (`LocalBusiness`, `HealthAndBeautyBusiness`, `ProfessionalService`, `Organization`)
+- [ ] JSON-LD erweitert: `address`, `telephone`, `openingHours`, `priceRange`,
+      `hasOfferCatalog`, `aggregateRating` + `review` (falls Reviews vorhanden)
+- [ ] JSON-LD: `FAQPage` (falls FAQ), `BlogPosting` (falls Blog)
+- [ ] Security Headers in `next.config.ts` (alle 5)
+- [ ] `poweredByHeader: false`
 
 **Inhaltlich**
-- [ ] Title-Tags inkl. Standort-Keyword (falls lokales Business)
+- [ ] Title-Tags inkl. Standort-Keyword (bei lokalem Business)
 - [ ] Meta-Descriptions für alle Seiten (max 155 Zeichen)
 - [ ] Heading-Hierarchie korrekt: H1 → H2 → H3 (kein Überspringen)
 - [ ] Kein `<div>` wo semantisch ein Heading hingehört
 - [ ] Alle Bilder haben Alt-Text
-- [ ] Keine Platzhalter-Links (href="#")
-- [ ] Alle externen Links: target="_blank" rel="noopener noreferrer"
+- [ ] Keine Platzhalter-Links (`href="#"`)
+- [ ] Alle externen Links: `target="_blank" rel="noopener noreferrer"`
 
 ---
 
 ## 7. Legal
 
-> Referenz: ~/dev/STANDARDS.md → Legal pages
+> Referenz: `~/dev/STANDARDS.md` → Legal pages
 
-- [ ] app/[locale]/impressum/page.tsx erstellt
-- [ ] app/[locale]/datenschutz/page.tsx erstellt
+- [ ] `app/impressum/page.tsx` mit echten Kundendaten
+- [ ] `app/datenschutz/page.tsx` mit echten Kundendaten
 - [ ] Impressum enthält: Firmenname, Adresse, UID, Kontakt-E-Mail
-- [ ] Datenschutz enthält: Verantwortliche Stelle, Server-Logs, Hosting (Vercel)
-- [ ] Datenschutz erweitert falls: Kontaktformular / Analytics / Tracking
+- [ ] Datenschutz spiegelt die **tatsächlich** eingesetzten Tools
+      (Kontaktformular / Vercel Analytics / Tracking raus, falls nicht genutzt)
+- [ ] Kunde ist verantwortliche Stelle — nicht blaenk studio (Kundenprojekt!)
 - [ ] Beide Seiten im Footer verlinkt
-- [ ] Beide Seiten: robots: { index: false, follow: false }
-- [ ] Optional: "Webdesign & Development by maeve studio" im Impressum
+- [ ] Beide Seiten: `robots: { index: false, follow: false }`
+- [ ] Credit "Webdesign & Entwicklung: maeve studio" im Impressum
 
 ---
 
 ## 8. Pre-Launch Check
 
-> Geh diese Liste komplett durch bevor du die Seite live schaltest.
-
 **Visuell**
 - [ ] Alle Seiten auf Desktop getestet
-- [ ] Alle Seiten auf Mobile getestet (Chrome DevTools)
-- [ ] Kein Placeholder-Text oder -Bilder sichtbar
-- [ ] Dark Mode getestet (falls implementiert)
+- [ ] Alle Seiten auf Mobile getestet
+- [ ] Kein Placeholder-Text oder -Bild sichtbar (auch nicht in Impressum/Datenschutz!)
+- [ ] `app/not-found.tsx` gestyled und getestet
 - [ ] Alle Links funktionieren
-- [ ] Formulare getestet (E-Mail kommt an)
+- [ ] Formular getestet (E-Mail kommt an)
 - [ ] Favicon sichtbar im Browser-Tab
-- [ ] OG-Image Vorschau getestet (z.B. opengraph.xyz)
+- [ ] OG-Image Vorschau getestet (opengraph.xyz)
 
 **Performance**
-- [ ] Lighthouse Score ≥ 90 (Performance, Accessibility, SEO)
+- [ ] Lighthouse ≥ 90 (Performance, Accessibility, SEO)
 - [ ] Bilder optimiert (WebP, korrekte Grössen)
 - [ ] Keine ungenutzten Dependencies
 
 **Deployment**
-- [ ] Vercel Projekt eingerichtet
-- [ ] Environment Variables gesetzt (falls nötig: RESEND_API_KEY, etc.) — ohne Key gibt das Kontaktformular in Produktion still 500 zurück
+- [ ] Vercel Projekt eingerichtet, mit GitHub Repo verbunden
+- [ ] `RESEND_API_KEY` gesetzt (Production **und** Preview)
 - [ ] Custom Domain in Vercel hinzugefügt
-- [ ] DNS-Anleitung an Kunden geschickt (Kunde ändert DNS selbst oder wir machen es gemeinsam per Screenshare)
-- [ ] SSL-Zertifikat aktiv (Vercel macht das automatisch)
-- [ ] Vercel Analytics aktiviert
+- [ ] DNS-Anleitung an Kunden geschickt
+- [ ] SSL aktiv (macht Vercel automatisch)
+- [ ] Vercel Analytics im Dashboard aktiviert
 - [ ] Preview-URL an Kunden für finalen Check
 
 ---
@@ -239,10 +238,11 @@ Diese Entscheidungen müssen VOR dem Start getroffen werden. Besprich sie im Kic
 ## 9. Go-Live
 
 - [ ] Kunde hat Preview abgenommen
-- [ ] Kunde hat DNS auf Vercel umgestellt (mit unserer Anleitung oder per Screenshare)
+- [ ] Kunde hat DNS auf Vercel umgestellt
 - [ ] Seite erreichbar unter finaler Domain
 - [ ] Redirect von www ↔ non-www funktioniert
-- [ ] Sitemap bei Google Search Console einreichen
+- [ ] Alte Seite: Redirects für bestehende URLs gesetzt (falls Relaunch)
+- [ ] Sitemap bei Google Search Console eingereicht
 - [ ] Finale OG-Image Vorschau nochmal prüfen (Cache kann alt sein)
 
 ---
@@ -251,7 +251,8 @@ Diese Entscheidungen müssen VOR dem Start getroffen werden. Besprich sie im Kic
 
 - [ ] Kunden informiert: Seite ist live
 - [ ] Erklärt wie Änderungswünsche ablaufen (E-Mail an uns)
-- [ ] Google Search Console eingerichtet (Kunde als Owner oder wir)
+- [ ] Google Search Console eingerichtet
+- [ ] Google Business Profil aktualisiert (Website-Link)
 - [ ] Erste Indexierung überwachen
 - [ ] Nach 1 Woche: kurzer Check ob alles läuft
 - [ ] Nach 1 Monat: Analytics Review mit Kunde (optional)
@@ -261,4 +262,3 @@ Diese Entscheidungen müssen VOR dem Start getroffen werden. Besprich sie im Kic
 ## Notizen
 
 _Platz für projektspezifische Notizen, Entscheidungen, offene Fragen._
-

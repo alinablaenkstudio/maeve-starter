@@ -1,16 +1,19 @@
 # CLAUDE.md — [Projektname]
 
-<!-- ONBOARDING-HINWEIS: Diese Datei ist ein Template und muss beim Projekt-Setup mit echten Kundendaten befüllt werden. Platzhalter [in eckigen Klammern] ersetzen. i18n-Abschnitt entfernen falls nur eine Sprache. -->
+<!-- TEMPLATE: Beim Setup mit echten Kundendaten befüllen. Platzhalter [in eckigen Klammern] ersetzen. -->
 
 ## Projekt-Übersicht
 
 | | |
 |---|---|
 | **Kunde** | [Kundenname] |
-| **Domain** | [yourdomain.com] |
-| **E-Mail** | [hello@yourdomain.com] |
+| **Domain** | [yourdomain.ch] |
+| **E-Mail** | [hello@yourdomain.ch] |
+| **Adresse** | [Strasse, PLZ Ort] |
+| **Telefon** | [+41 XX XXX XX XX] |
 | **Paket** | Foundation / Signature / Atelier |
 | **Go-Live** | [Datum] |
+| **Gestartet** | [Datum] |
 
 ## Tech Stack
 
@@ -18,75 +21,92 @@
 |-------|------------|
 | Framework | Next.js 15 (App Router, Server Components) |
 | Language | TypeScript 5 |
-| i18n | next-intl v4 (URL-based: `/de/...`, `/en/...`) |
-| Styling | Native CSS (no Tailwind) |
+| Sprache | DE-only (i18n siehe `docs/i18n-add-on.md`) |
+| Styling | Native CSS in `app/globals.css` — kein Tailwind |
+| Formular | Resend über `app/api/contact/route.ts` |
+| Analytics | Vercel Analytics |
 | Hosting | Vercel |
 
-## i18n
+## Farbpalette
 
-- Locales: `['de', 'en']`
-- Default locale: `de`
-- URL-based routing: `/de/...`, `/en/...`
+| Token | Hex | Beschreibung |
+|-------|-----|--------------|
+| `--color-bg` | `#ffffff` | Hintergrund |
+| `--color-text` | `#111111` | Text |
+| `--color-accent` | `#000000` | Akzent |
+
+<!-- Beim Design durch die echten Projekt-Tokens ersetzen. -->
 
 ## Projektentscheide
 
-- [ ] Sprache(n): DE only / EN only / DE + EN
-- [ ] Kontaktformular: ja / nein
-- [ ] Blog: ja / nein
-- [ ] Analytics: Vercel Analytics / Plausible / keine
-- [ ] Cookie-Banner: ja (falls Ads/Pixel) / nein
+- [ ] Sprache: DE-only / DE + EN
+- [ ] Seitenstruktur: One-Pager / Mehrseiter
+- [ ] Kontaktformular: ja / nein / nur E-Mail-Link
+- [ ] Blog: ja / nein / später
+- [ ] FAQ: ja / nein
+- [ ] Analytics: Vercel Analytics (Standard, kein Cookie-Banner)
+- [ ] Cookie-Banner: nur nötig falls Google Ads / Meta Pixel
+
+## Positionierung
+
+<!-- Was ist das Angebot, für wen, welche Leitbegriffe für SEO, welche Abgrenzung. -->
 
 ## Seiten
 
-- `/[locale]` — Homepage
-- `/[locale]/impressum` — Impressum
-- `/[locale]/datenschutz` — Datenschutz
-- (weitere Seiten hier ergänzen)
+- `/` — Homepage
+- `/impressum`
+- `/datenschutz`
 
 ## Wichtige Dateien
 
 | Datei | Zweck |
 |-------|-------|
-| `config/site.ts` | Name, URL, E-Mail — hier ändern, nicht im Code |
-| `messages/de.json` | Alle deutschen Texte |
-| `messages/en.json` | Alle englischen Texte |
-| `app/[locale]/layout.tsx` | Metadata, JSON-LD, Fonts |
-| `lib/i18n-metadata.ts` | Hreflang + canonical helper |
+| `config/site.ts` | Name, URL, E-Mail — single source of truth, nie hardcoden |
+| `app/layout.tsx` | Metadata, OG, JSON-LD, Fonts |
+| `app/page.tsx` | Homepage |
+| `app/globals.css` | Design-Tokens + alle Styles |
+| `app/llms.txt/route.ts` | llms.txt für AI-Crawler |
+| `app/api/contact/route.ts` | Formular-Versand (Honeypot + Rate-Limit) |
+| `scripts/make-og.sh` | OG-Image aus Hero-Bild erzeugen |
+
+## Kontaktformular / Resend
+
+- Absender ist fix `noreply@blaenkstudio.com` — Kundendomains werden in Resend
+  **nicht** verifiziert. Der Gratis-Plan erlaubt eine Domain, die teilen sich
+  alle maeve-Projekte. Details in `~/dev/STANDARDS.md` → E-Mail-Setup.
+- Empfänger ist `siteConfig.email`, `replyTo` ist die anfragende Person.
+- Pro Projekt nur: API Key in Resend anlegen, `RESEND_API_KEY` in Vercel
+  hinterlegen (Production **und** Preview). Ohne Key gibt das Formular in
+  Produktion still 500 zurück.
+- Schutz: Honeypot-Feld `website` + In-Memory-Rate-Limit (3 pro 10 Min pro IP).
+  Bei ernsthaftem Spam Cloudflare Turnstile ergänzen.
 
 ## Konventionen
 
-- Alle Texte kommen aus `messages/[locale].json` — nie hardcoden
-- URLs und Site-Name kommen aus `config/site.ts` — nie hardcoden
+- Texte direkt im JSX — kein i18n, keine Message-Files
+- URL, Name, E-Mail aus `config/site.ts`
 - Eine Komponente pro Datei in `components/`
-- Server Components by default, `'use client'` nur wenn nötig (z.B. Sprachumschalter)
-
-## i18n entfernen (falls nur eine Sprache)
-
-Wenn das Projekt nur eine Sprache hat, muss i18n komplett entfernt werden:
-
-1. Alle Seiten von `app/[locale]/` nach `app/` verschieben
-2. `app/[locale]/layout.tsx` → wird zu `app/layout.tsx` (ohne Locale-Parameter, `lang="de"` oder `lang="en"` fix setzen)
-3. `next-intl` deinstallieren (`npm uninstall next-intl`)
-4. `messages/`-Ordner löschen — Texte direkt im JSX schreiben
-5. `i18n/`-Ordner löschen (routing.ts, request.ts)
-6. `lib/i18n-metadata.ts` löschen — Canonical/Hreflang direkt in layout.tsx
-7. `next.config.ts` — next-intl Plugin entfernen falls vorhanden
-8. `useTranslations()` durch direkte Texte ersetzen in allen Seiten/Komponenten
-9. In dieser CLAUDE.md: i18n-Abschnitt entfernen, Tech Stack anpassen, Seiten-Pfade aktualisieren (z.B. `/impressum` statt `/[locale]/impressum`)
+- Server Components by default, `'use client'` nur wo nötig
+- CSS in `app/globals.css`, Design-Tokens als CSS-Variablen unter `:root`
 
 ## Design-Workflow
 
-**Kein HTML-Mockup als Zwischenschritt.** Design immer direkt als Next.js Components + CSS implementieren.
-Preview-Server starten, Screenshot zeigen, iterieren — nie in HTML vorbauen.
+**Kein HTML-Mockup als Zwischenschritt.** Design direkt als Next.js Components + CSS.
+Preview-Server starten, Screenshot zeigen, iterieren.
 
-**Legal-Seiten beim Redesign nicht vergessen:** Wenn `globals.css` neu aufgebaut wird (neue Farben, Fonts, Layout), müssen die `.legal`-Styles für Impressum und Datenschutz immer mit angepasst werden. Diese Seiten sollen das gleiche Look & Feel haben wie der Rest der Website.
+**Legal-Seiten beim Redesign mitziehen:** Wenn `globals.css` neu aufgebaut wird,
+müssen die `.legal`-Styles für Impressum und Datenschutz mit angepasst werden.
+Diese Seiten sollen dasselbe Look & Feel haben wie der Rest.
 
 ## Status
 
-- [ ] config/site.ts befüllt
-- [ ] messages/de.json + en.json befüllt
-- [ ] Impressum + Datenschutz mit echten Daten befüllt
+- [ ] `config/site.ts` befüllt
+- [ ] Impressum + Datenschutz mit echten Kundendaten
 - [ ] Fonts eingebunden
 - [ ] Design/CSS umgesetzt
-- [ ] Vercel Projekt eingerichtet
+- [ ] `app/icon.png` + `public/og-social.jpg`
+- [ ] JSON-LD in `app/layout.tsx` an das Geschäft angepasst
+- [ ] `app/llms.txt/route.ts` befüllt
+- [ ] GitHub Repo + Vercel Projekt
+- [ ] `RESEND_API_KEY` in Vercel
 - [ ] Domain verbunden
